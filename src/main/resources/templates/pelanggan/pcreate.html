@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="includes/base :: css"></head> 
+    <body> 
+        <header th:replace="includes/base :: navbar"></header> 
+ 
+        <main role="main " class="container"> 
+            <div th:replace="includes/base :: head-content"></div> 
+            <div class="container mt-5"> 
+                <div class="row mb-4"> 
+                    <div class="col-12"> 
+                        <form method="POST" action="#" th:action="@{/pelanggan/pstore}" th:object="${pelanggan}"> 
+                            <div class="form-group"> 
+                                <label for="example-pelanggan-name">Masukkan Nama Pelanggan</label> 
+                                <input th:field="*{name}" type="text" class="form-control" id="example-pelanggan-name" aria-describedby="emailHelp" placeholder="example: Firyal" required> 
+                            </div> 
+ 
+                            
+                            <div class="form-group"> 
+                                <label for="example-pelanggan-tel">Masukkan Nomor Telfon Pelanggan</label> 
+                                <textarea th:field="*{telephone}" class="form-control" id="example-pelanggan-tel" aria-describedby="emailHelp" placeholder="example: 08xxxxxx"></textarea> 
+                            </div> 
+                            
+                             <div class="form-group"> 
+                                <label for="example-pelanggan-ala">Masukkan Alamat Pelanggan</label> 
+                                <textarea th:field="*{alamat}" class="form-control" id="example-pelanggan-ala" aria-describedby="emailHelp" placeholder="example: Depok"></textarea> 
+                            </div>
+                             
+          
+                            <button type="submit" class="btn btn-primary">Submit</button> 
+                        </form> 
+                    </div> 
+                </div> 
+            </div> 
+        </main> 
+        <div th:replace="includes/base  :: footer"></div> 
+        <div th:replace="includes/base  :: scripts"></div>     
+    </body> 
+</html>

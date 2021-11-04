@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="includes/base :: css"></head> 
+    <body> 
+        <header th:replace="includes/base :: navbar"></header> 
+ 
+        <main role="main " class="container"> 
+            <div th:replace="includes/base :: head-content"></div> 
+            <div class="container mt-5"> 
+                <div class="row mb-4"> 
+                    <div class="col-12"> 
+                        <h5 class="mb-4">Edit Alamat</h5> 
+ 
+                        <form method="POST" action="#" th:action="@{/transaksi/tstore}" th:object="${transaksi}"> 
+                            <input type="hidden" th:field="*{id}" /> 
+                             <div class="form-group"> 
+                                <label for="example-transaksi-tan">Tanggal</label> 
+                                <input th:field="*{tanggal}" type="text" class="form-control" id="example-transaksi-tan" aria-describedby="emailHelp" placeholder="example: Firyal" required> 
+                            </div> 
+ 
+                            <div class="form-group">
+                                <label for="example-transaction-kar">Nama Karyawan</label>
+                                <select th:field="*{karyawan}" class="form-control">
+                                    <th:block th:each="kar : ${karyawan}">
+                                        <option th:text="${kar.name}" th:value="${kar.id}"></option>
+                                    </th:block>
+                                </select>
+                                
+                                <div class="form-group">
+                                <label for="example-transaction-pel">Nama Pelanggan</label>
+                                <select th:field="*{pelanggan}" class="form-control">
+                                    <th:block th:each="pel : ${pelanggan}">
+                                        <option th:text="${pel.name}" th:value="${pel.id}"></option>
+                                    </th:block>
+                                </select>
+                                
+                            <div class="form-group"> 
+                                <label for="example-transaksi-ber">Berat Barang</label> 
+                                <textarea th:field="*{ber}" class="form-control" id="example-transaksi-ber" aria-describedby="emailHelp" placeholder="example: 08xxxxxx"></textarea> 
+                            </div> 
+                            
+                                <div class="form-group">
+                                <label for="example-transaction-jen">Jenis Barang</label>
+                                <select th:field="*{jenis}" class="form-control">
+                                    <th:block th:each="jen : ${jenis}">
+                                        <option th:text="${jen.name}" th:value="${jen.id}"></option>
+                                    </th:block>
+                                </select>
+                                
+                             <div class="form-group"> 
+                                <label for="example-transaksi-tar">Tarif Barang</label> 
+                                <textarea th:field="*{tarif}" class="form-control" id="example-transaksi-tar" aria-describedby="emailHelp" placeholder="example: Depok"></textarea> 
+                            </div>
+                             
+                                <div class="form-group"> 
+                                <label for="example-transaksi-tot">Total</label> 
+                                <textarea th:field="*{total}" class="form-control" id="example-transaksi-tot" aria-describedby="emailHelp" placeholder="example: Depok"></textarea> 
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Submit</button> 
+                        </form> 
+                    </div> 
+                </div> 
+            </div> 
+        </main> 
+        <div th:replace="includes/base  :: footer"></div> 
+        <div th:replace="includes/base  :: scripts"></div> 
+    </body> 
+</html>

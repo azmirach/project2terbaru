@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransaksiService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project</a> &gt; <a href="index.source.html" class="el_package">com.spboot.project.services</a> &gt; <span class="el_source">TransaksiService.java</span></div><h1>TransaksiService.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.spboot.project.services;
+
+/**
+ *
+ * @author ASUS
+ */
+
+import com.spboot.project.models.Transaksi;
+import com.spboot.project.repositories.TransaksiRepository;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import com.spboot.project.interfaces.TransaksiInterface;
+
+@Service 
+<span class="fc" id="L24">public class TransaksiService implements TransaksiInterface { </span>
+    @Autowired 
+    private TransaksiRepository transaksiRepository; 
+     
+    @Override 
+    public List&lt;Transaksi&gt; getAll() { 
+<span class="nc" id="L30">        return transaksiRepository.findAll(); </span>
+    } 
+ 
+    @Override 
+    public void tstore(Transaksi transaksi) { 
+<span class="nc" id="L35">        this.transaksiRepository.save(transaksi); </span>
+<span class="nc" id="L36">    } </span>
+     
+    @Override 
+    public Transaksi getById(long id) { 
+<span class="nc" id="L40">        Optional &lt; Transaksi &gt; optional = transaksiRepository.findById(id); </span>
+ 
+<span class="nc bnc" id="L42" title="All 2 branches missed.">     if (!optional.isPresent()) { </span>
+<span class="nc" id="L43">        throw new RuntimeException(&quot; Transaksi not found for id : &quot; + id); </span>
+     } 
+ 
+<span class="nc" id="L46">    Transaksi transaksi = optional.get(); </span>
+<span class="nc" id="L47">    return transaksi; </span>
+    } 
+ 
+    @Override 
+    public void delete(long id) { 
+<span class="nc" id="L52">    this.transaksiRepository.deleteById(id); </span>
+<span class="nc" id="L53">    } </span>
+}    
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

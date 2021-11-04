@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project</a> &gt; <a href="index.source.html" class="el_package">com.spboot.project.services</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.spboot.project.services;
+
+import com.spboot.project.interfaces.UserInterface;
+import com.spboot.project.models.User;
+import com.spboot.project.repositories.UserRepository;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ *
+ * @author ACER
+ */
+@Service
+<span class="fc" id="L22">public class UserService implements UserInterface {</span>
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Override
+    public List&lt;User&gt; getAll() {
+<span class="nc" id="L28">        return userRepository.findAll();</span>
+    }
+
+    @Override
+    public void register(User user) throws Exception {
+<span class="nc" id="L33">        String hashed = this.hash(user.getPassword());</span>
+<span class="nc" id="L34">        user.setPassword(hashed);</span>
+        
+<span class="nc" id="L36">        this.userRepository.save(user);</span>
+<span class="nc" id="L37">    }</span>
+
+    @Override
+    public User auth(String email, String password) throws Exception {
+<span class="nc" id="L41">        User user = userRepository.findByEmail(email);</span>
+
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L44">            return null;</span>
+        }
+
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (!this.match(user.getPassword(), password)) {</span>
+<span class="nc" id="L48">            return null;</span>
+        }
+
+<span class="nc" id="L51">        return user;</span>
+    }
+
+    private String hash(String password) throws Exception {
+<span class="nc" id="L55">        MessageDigest md = MessageDigest.getInstance(&quot;MD5&quot;);</span>
+
+<span class="nc" id="L57">        byte[] messageDiggest = md.digest(password.getBytes());</span>
+
+<span class="nc" id="L59">        BigInteger no = new BigInteger(1, messageDiggest);</span>
+
+<span class="nc" id="L61">        String hashText = no.toString(16);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        while (hashText.length() &lt; 32) {</span>
+<span class="nc" id="L63">            hashText = &quot;0&quot; + hashText;</span>
+        }
+
+<span class="nc" id="L66">        return hashText;</span>
+    }
+
+    private boolean match(String password, String rawPassword)
+            throws Exception {
+<span class="nc" id="L71">        rawPassword = this.hash(rawPassword);</span>
+<span class="nc" id="L72">        return password.equals(rawPassword);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

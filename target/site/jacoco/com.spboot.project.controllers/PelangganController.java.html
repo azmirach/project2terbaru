@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PelangganController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">project</a> &gt; <a href="index.source.html" class="el_package">com.spboot.project.controllers</a> &gt; <span class="el_source">PelangganController.java</span></div><h1>PelangganController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.spboot.project.controllers;
+
+import com.spboot.project.interfaces.PelangganInterface;
+import com.spboot.project.models.Pelanggan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+/**
+ *
+ * @author ASUS
+ */
+@Controller 
+<span class="fc" id="L23">public class PelangganController { </span>
+    @Autowired 
+    private PelangganInterface pelangganInterface; 
+ 
+    @GetMapping(&quot;/pelanggan&quot;) 
+    public String pindex(Model model) { 
+<span class="nc" id="L29">        model.addAttribute(&quot;list&quot;, pelangganInterface.getAll()); </span>
+<span class="nc" id="L30">        return &quot;pelanggan/pindex&quot;; </span>
+    } 
+ 
+    @GetMapping(&quot;/pelanggan/pcreate&quot;) 
+    public String pcreate(Model model) { 
+<span class="nc" id="L35">        Pelanggan pelanggan = new Pelanggan(); </span>
+<span class="nc" id="L36">        model.addAttribute(&quot;pelanggan&quot;, pelanggan); </span>
+         
+<span class="nc" id="L38">        return &quot;pelanggan/pcreate&quot;; </span>
+    } 
+ 
+    @PostMapping(&quot;/pelanggan/pstore&quot;) 
+    public String pstore(@ModelAttribute(&quot;pelanggan&quot;) Pelanggan pelanggan) { 
+<span class="nc" id="L43">        pelangganInterface.pstore(pelanggan); </span>
+<span class="nc" id="L44">        return &quot;redirect:/pelanggan/&quot;; </span>
+    } 
+     
+    @GetMapping(&quot;/pelanggan/{id}/pedit&quot;) 
+    public String pedit(@PathVariable(value = &quot;id&quot;) long id, Model model) { 
+<span class="nc" id="L49">        Pelanggan pelanggan = pelangganInterface.getById(id); </span>
+ 
+<span class="nc" id="L51">        model.addAttribute(&quot;pelanggan&quot;, pelanggan); </span>
+<span class="nc" id="L52">        return &quot;pelanggan/pedit&quot;; </span>
+    } 
+ 
+    @PostMapping(&quot;/pelanggan/{id}/delete&quot;) 
+    public String delete(@PathVariable(value = &quot;id&quot;) long id) { 
+<span class="nc" id="L57">        pelangganInterface.delete(id); </span>
+<span class="nc" id="L58">        return &quot;redirect:/pelanggan/&quot; ; </span>
+    } 
+}
+   
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
